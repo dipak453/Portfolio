@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio | Creative Professional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: var(--dark-color);
+            transition: all 0.3s ease;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .navbar {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #e2e8f0;
+        }
+
+        .fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            transition: width 1s ease;
+        }
+
+        .project-modal {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
+        
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar fixed w-full z-50 py-4 px-6 lg:px-12">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold text-indigo-600">Portfolio<span class="text-violet-500">.</span></a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="text-slate-700 hover:text-indigo-600 transition">Home</a>
+                <a href="#about" class="text-slate-700 hover:text-indigo-600 transition">About</a>
+                <a href="#projects" class="text-slate-700 hover:text-indigo-600 transition">Projects</a>
+                <a href="#skills" class="text-slate-700 hover:text-indigo-600 transition">Skills</a>
+                <a href="#contact" class="text-slate-700 hover:text-indigo-600 transition">Contact</a>
+            </div>
+            <button id="menu-btn" class="md:hidden text-slate-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden bg-white w-full left-0 px-6 pb-4 shadow-lg rounded-b-lg">
+            <div class="flex flex-col space-y-3">
+                <a href="#home" class="text-slate-700 hover:text-indigo-600 transition pt-3">Home</a>
+                <a href="#about" class="text-slate-700 hover:text-indigo-600 transition">About</a>
+                <a href="#projects" class="text-slate-700 hover:text-indigo-600 transition">Projects</a>
+                <a href="#skills" class="text-slate-700 hover:text-indigo-600 transition">Skills</a>
+                <a href="#contact" class="text-slate-700 hover:text-indigo-600 transition">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero min-h-screen flex items-center pt-16">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 py-20 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 animate-fadeIn">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">Hi, I'm <span class="text-indigo-200">Dipak kumar</span></h1>
+                <h2 class="text-2xl md:text-3xl text-white mb-8">Web <span class="text-indigo-200">Designer</span> & <span class="text-indigo-200">Developer</span></h2>
+                <p class="text-white mb-10 text-lg max-w-lg">Experienced in building functional web applications and Generative AI Learning.</p>
+                <div class="flex space-x-4">
+                    <a href="#projects" class="bg-white text-indigo-600 px-6 py-3 rounded-lg font-medium hover:bg-indigo-50 transition">View Work</a>
+                    <a href="#contact" class="border-2 border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-indigo-600 transition">Contact Me</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 mt-16 md:mt-0 animate-fadeIn delay-200 flex justify-center">
+                <div class="relative">
+                    <div class="absolute -inset-4 bg-white/20 rounded-full blur-xl animate-pulse"></div>
+                    <img src="dp.jpg" alt="Portrait of Alex, a professional designer and developer with a modern minimalist aesthetic" class="relative rounded-full w-64 h-64 md:w-80 md:h-80 object-cover border-4 border-white shadow-lg" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 animate-fadeIn">About Me</h2>
+            <div class="w-20 h-1 bg-indigo-600 mx-auto mb-16"></div>
+            
+            <div class="flex flex-col md:flex-row gap-12 animate-fadeIn delay-100">
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-6 text-slate-800">Who I Am</h3>
+                    <p class="text-slate-600 mb-4 leading-relaxed">I'm Dipak, an aspiring IT professional with a passion for web development, artificial intelligence, and creative problem-solving. Proficient in HTML, CSS, JavaScript, and Python, I enjoy building interactive and user-friendly applications.
+
+ I'm an eSports enthusiast, football fan, and graphics design hobbyist. I also have experience in editing and love exploring new technologies. My goal is to leverage AI and web development to create innovative solutions that make an impact.
+
+Apart from coding, I’m a football lover, eSports enthusiast, and graphics design explorer. I have a knack for problem-solving, UI/UX improvements, and AI-driven applications. My goal is to build seamless, intelligent, and engaging digital experiences.
+
+Currently, I'm exploring the AI tools like ChatGPT, Blackbox AI, Bolt.new, and Gemini etc.
+
+Download my resume to explore my work, skills, and expertise..</p>
+                    <p class="text-slate-600 mb-6 leading-relaxed">I believe good design solves problems, delights users, and creates meaningful connections between brands and their audiences.</p>
+                    <div class="flex flex-wrap gap-4 mb-8">
+                        <span class="bg-indigo-100 text-indigo-800 px-4 py-2 rounded-full">User-Centered Design</span>
+                        <span class="bg-indigo-100 text-indigo-800 px-4 py-2 rounded-full">Responsive Development</span>
+                        <span class="bg-indigo-100 text-indigo-800 px-4 py-2 rounded-full">Visual Storytelling</span>
+                    </div>
+                    <a href="RESUME.pdf" class="inline-flex items-center text-indigo-600 font-medium group">
+                        Download Resume
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-1 transition" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-6 text-slate-800">My Experience</h3>
+                    <div class="space-y-8">
+                        <div class="relative pl-8 border-l-2 border-indigo-200">
+                            <div class="absolute -left-[9px] w-4 h-4 rounded-full bg-indigo-600"></div>
+                            <h4 class="text-lg font-semibold text-slate-800">Fresher</h4>
+                            <p class="text-slate-500 mb-2">Present</p>
+                            <p class="text-slate-600">“I’m a passionate and motivated fresher with a strong interest in web development and design. I enjoy turning ideas into real-world applications using HTML, CSS, JavaScript, and React.</p>
+                        </div>
+                        <div class="relative pl-8 border-l-2 border-indigo-200">
+                            <div class="absolute -left-[9px] w-4 h-4 rounded-full bg-indigo-600"></div>
+                            <h4 class="text-lg font-semibold text-slate-800">Frontend Developer</h4>
+                            <p class="text-slate-500 mb-2">present </p>
+                            <p class="text-slate-600">"I’m a dedicated and creative frontend developer with a strong foundation in HTML, CSS, JavaScript, and React.  </p>
+                        </div>
+                        <div class="relative pl-8 border-l-2 border-indigo-200">
+                            <div class="absolute -left-[9px] w-4 h-4 rounded-full bg-indigo-600"></div>
+                            <h4 class="text-lg font-semibold text-slate-800">Web Development Intern</h4>
+                            <p class="text-slate-500 mb-2">July 2025</p>
+                            <p class="text-slate-600">"I’m a motivated web developer with 1 month of hands-on internship experience, where I worked on building responsive websites using HTML, CSS, JavaScript, and React.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 animate-fadeIn">My Projects</h2>
+            <div class="w-20 h-1 bg-indigo-600 mx-auto mb-16"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="card bg-white rounded-lg overflow-hidden animate-fadeIn delay-100">
+                    <div class="card-image relative group">
+                        <img src="calp.png" alt="Modern e-commerce dashboard interface with analytics charts and product visualization" class="w-full h-48 object-cover" />
+                        <div class="absolute inset-0 bg-indigo-600/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                            <button onclick="openModal('project1')" class="bg-white text-indigo-600 px-6 py-2 rounded-lg font-medium">View Details</button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 text-slate-800">Calculator</h3>
+                        <p class="text-slate-600 mb-4">A simple calculator application developed in python to perform basic arithmetic operations.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded">Python</span>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="card bg-white rounded-lg overflow-hidden animate-fadeIn delay-200">
+                    <div class="card-image relative group">
+                        <img src="lit.png" alt="Mobile app interface showing fitness tracking with workout metrics and progress charts" class="w-full h-48 object-cover" />
+                        <div class="absolute inset-0 bg-indigo-600/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                            <button onclick="openModal('project2')" class="bg-white text-indigo-600 px-6 py-2 rounded-lg font-medium">View Details</button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 text-slate-800">Online Book Store</h3>
+                        <p class="text-slate-600 mb-4">Platform to browse, buy, and manage books online.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded">REACT</span>
+                            <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded">HTML/CSS</span>
+                            <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded">JavaScript</span>
+                            <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded">Mangodb</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="card bg-white rounded-lg overflow-hidden animate-fadeIn delay-300">
+                    <div class="card-image relative group">
+                        <img src="port.png" alt="Creative portfolio website layout with modern animations and elegant typography" class="w-full h-48 object-cover" />
+                        <div class="absolute inset-0 bg-indigo-600/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                            <button onclick="openModal('project3')" class="bg-white text-indigo-600 px-6 py-2 rounded-lg font-medium">View Details</button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 text-slate-800">Portfolio Website</h3>
+                        <p class="text-slate-600 mb-4">Custom-designed portfolio website showcasing creative work and case studies.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded">HTML/CSS</span>
+                            <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded">JavaScript</span>
+                            <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded">Mangodb</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 animate-fadeIn delay-400">
+                <button class="border border-indigo-600 text-indigo-600 px-8 py-3 rounded-lg font-medium hover:bg-indigo-600 hover:text-white transition">
+                    View All Projects
+                </button>
+            </div>
+        </div>-->
+        
+        <!-- Project Modals -->
+        <div id="project1" class="project-modal fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+            <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="relative p-6">
+                    <button onclick="closeModal('project1')" class="absolute top-4 right-4 text-slate-500 hover:text-slate-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">Calculator</h3>
+                    <img src="calp.png" alt="Detailed view of the e-commerce dashboard interface with multiple analytics components" class="w-full h-auto mb-6 rounded-lg" />
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h4 class="text-lg font-semibold mb-2 text-slate-800">Project Overview</h4>
+                            <p class="text-slate-600">A basic calculator built using Python that performs addition, subtraction, multiplication, and division. It uses simple logic and user input to carry out calculations.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold mb-2 text-slate-800">Technologies Used</h4>
+                            <ul class="list-disc pl-5 text-slate-600">
+                                <li>Python</li>
+                            </ul>
+                            <br><br>
+                            <a href="https://github.com/dipak453/calculator" target="_blank">
+                            <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 transition w-full md:w-auto">
+                            View Source Code
+                        </button></a>
+                        </div>
+                    </div>
+                    <div class="border-t pt-4">
+                        <h4 class="text-lg font-semibold mb-2 text-slate-800">Key Results</h4>
+                        <ul class="list-disc pl-5 text-slate-600">
+                            <li>Successfully performed basic operations: add, subtract, multiply, divide</li>
+                            <li>Handled user input and displayed correct results</li>
+                            <li>Improved understanding of Python syntax and logic</li>
+                            <li>Built a functional and user-friendly too</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="project2" class="project-modal fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+            <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="relative p-6">
+                    <button onclick="closeModal('project2')" class="absolute top-4 right-4 text-slate-500 hover:text-slate-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">Online Book Store</h3>
+                    <img src="lit.png" alt="The Online Bookstore is a web app for buying books online, featuring secure login, search, cart, checkout, and an admin panel for managing books and orders." class="w-full h-auto mb-6 rounded-lg" />
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h4 class="text-lg font-semibold mb-2 text-slate-800">Project Overview</h4>
+                            <p class="text-slate-600">The Online Bookstore is a full-stack web app where users can browse, search, and buy books, while admins manage inventory and orders. Built with React, Node.js, Express, and MongoDB, it features secure login, book filtering, shopping cart, and role-based access control, with scope for future enhancements like reviews and recommendations.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold mb-2 text-slate-800">Technologies Used</h4>
+                            <ul class="list-disc pl-5 text-slate-600">
+                                <li>React</li>
+                                <li>Html</li>
+                                <li>tailwind Css</li>
+                                <li>JavaScript</li>
+                                <li>Mangodb</li>
+                            </ul>
+                            <br>
+                            <a href="https://github.com/dipak453/Online-Book-Store" target="_blank">
+                            <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 transition w-full md:w-auto">
+                            View Source Code
+                        </button></a>
+                        </div>
+                    </div>
+                    <div class="border-t pt-4">
+                        <h4 class="text-lg font-semibold mb-2 text-slate-800">Key Results</h4>
+                        <ul class="list-disc pl-5 text-slate-600">
+                            <li>Web-based platform for buying and selling books online.</li>
+                            <li>User features: secure login, book search/filter, cart, and checkout.</li>
+                            <li>Admin features: manage books, categories, and orders.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="project3" class="project-modal fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+            <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="relative p-6">
+                    <button onclick="closeModal('project3')" class="absolute top-4 right-4 text-slate-500 hover:text-slate-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">Portfolio Website</h3>
+                    <img src="port.png" alt="Full-screen screenshot of the portfolio website showing layout and navigation elements" class="w-full h-auto mb-6 rounded-lg" />
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h4 class="text-lg font-semibold mb-2 text-slate-800">Project Overview</h4>
+                            <p class="text-slate-600">Showcasing projects in web development using Html, Tailwind Css, and JavaScript focusing on responsive design, functionality, and real-world solutions.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold mb-2 text-slate-800">Technologies Used</h4>
+                            <ul class="list-disc pl-5 text-slate-600">
+                                <li>Html</li>
+                                <li>tailwind ss</li>
+                                <li>JavaScript</li>
+                                <li>Mangodb</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="border-t pt-4">
+                        <h4 class="text-lg font-semibold mb-2 text-slate-800">Key Results</h4>
+                        <ul class="list-disc pl-5 text-slate-600">
+                            <li>Enhanced user experience through clean UI design.</li>
+                            <li>Integrated APIs & AI tools to create smart, real-world solutions.</li>
+                            <li>Featured in CSS Design Awards</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 animate-fadeIn">My Skills</h2>
+            <div class="w-20 h-1 bg-indigo-600 mx-auto mb-16"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="animate-fadeIn delay-100">
+                    <h3 class="text-2xl font-semibold mb-6 text-slate-800">Technical Skills</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium text-slate-700">UI/UX Design</span>
+                                <span class="text-slate-500">75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium text-slate-700">HTML/CSS</span>
+                                <span class="text-slate-500">70%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="fill" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium text-slate-700">JavaScript</span>
+                                <span class="text-slate-500">50%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="fill" style="width: 50%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium text-slate-700">React</span>
+                                <span class="text-slate-500">60%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="fill" style="width: 60%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="animate-fadeIn delay-200">
+                    <h3 class="text-2xl font-semibold mb-6 text-slate-800">Professional Skills</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium text-slate-700">Communication</span>
+                                <span class="text-slate-500">75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium text-slate-700">Team Leadership</span>
+                                <span class="text-slate-500">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium text-slate-700">Project Management</span>
+                                <span class="text-slate-500">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="fill" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium text-slate-700">Problem Solving</span>
+                                <span class="text-slate-500">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="fill" style="width: 90%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-20 animate-fadeIn delay-300">
+                <h3 class="text-2xl font-semibold mb-8 text-slate-800 text-center">Tools & Technologies</h3>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <div class="flex flex-col items-center">
+                        <div class="bg-slate-100 p-4 rounded-full mb-2">
+                            <img src="photoshop.png" alt="Adobe Photoshop logo" class="h-10 w-10" />
+                        </div>
+                        <span class="text-sm text-slate-600">Photoshop</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-slate-100 p-4 rounded-full mb-2">
+                            <img src="figma.png" alt="Figma logo" class="h-10 w-10" />
+                        </div>
+                        <span class="text-sm text-slate-600">Figma</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-slate-100 p-4 rounded-full mb-2">
+                            <img src="vscode.png" alt="Visual Studio Code logo" class="h-10 w-10" />
+                        </div>
+                        <span class="text-sm text-slate-600">VS Code</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-slate-100 p-4 rounded-full mb-2">
+                            <img src="git.png" alt="Git logo" class="h-10 w-10" />
+                        </div>
+                        <span class="text-sm text-slate-600">Git</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-slate-100 p-4 rounded-full mb-2">
+                            <img src="react.png" alt="React logo" class="h-10 w-10" />
+                        </div>
+                        <span class="text-sm text-slate-600">React</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-slate-100 p-4 rounded-full mb-2">
+                            <img src="js.png" alt="Node.js logo" class="h-10 w-10" />
+                        </div>
+                        <span class="text-sm text-slate-600">Node.js</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 animate-fadeIn">Get In Touch</h2>
+            <div class="w-20 h-1 bg-indigo-600 mx-auto mb-16"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 animate-fadeIn delay-100">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-slate-800">Contact Information</h3>
+                    <p class="text-slate-600 mb-8">Feel free to reach out if you're looking for a designer/developer, have a question, or just want to connect.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center">
+                            <div class="bg-indigo-100 p-3 rounded-full mr-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <a href="mailto:hello@example.com" class="text-slate-600 hover:text-indigo-600 transition">dipakkumar2401998@gmail.com</a>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-indigo-100 p-3 rounded-full mr-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                </svg>
+                            </div>
+                            <a href="tel:+1234567890" class="text-slate-600 hover:text-indigo-600 transition">(91)7761076967</a>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-indigo-100 p-3 rounded-full mr-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </div>
+                            <span class="text-slate-600">INDIA, PATNA</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="text-lg font-semibold mb-4 text-slate-800">Connect With Me</h4>
+                        <div class="flex space-x-4">
+                            <a href="https://www.linkedin.com/in/dipak-kumar-49b1bb294?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="bg-indigo-100 text-indigo-600 p-3 rounded-full hover:bg-indigo-200 transition" target="_blank">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+                                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="bg-indigo-100 text-indigo-600 p-3 rounded-full hover:bg-indigo-200 transition" target="_blank">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+                                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                                </svg>
+                            </a>
+                            <a href="https://www.instagram.com/secret_life.of_dipak?igsh=dDhlbGFjd3JvaGY4" class="bg-indigo-100 text-indigo-600 p-3 rounded-full hover:bg-indigo-200 transition" target="_blank">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                </svg>
+                            </a>
+                            
+                               
+                                    <path d="M12 0c-6.626 0-12 5.372-12 12 0 5.084 3.163 9.426 7.627 10.983.088.071.183.133.274.198.383.215.811.319 1.247.319.434 0 .864-.104 1.247-.319.091-.065.186-.127.274-.198 4.463-1.557 7.626-5.899 7.626-10.983 0-6.628-5.372-12-12-12zm-2.16 18.479c-2.571.358-4.84-.313-4.84-2.17 0-1.221 1.518-1.82 2.939-1.856 1.14 0 2.058.227 2.072.81.008.441-.512.608-1.441.639-.712.024-1.702-.092-1.805-.598-.07-.342.188-.774 1.055-.91.59-.09 1.821-.429 1.821-1.755 0-1.469-2.006-1.952-3.366-1.629-1.38.328-2.377 1.267-2.377 2.088 0 .385.225.634.729.634.432 0 .913-.208 1.35-.208.367 0 .741.103.741.464 0 .258-.183.532-.411.684-.355.239-.593.445-.772.804-.266.527-.093 1.251.171 1.512.319.318.899.383 2.038.248l.039-.011c.275-.078.626-.072.901.115.397.27.469.669.469 1.069 0 .559-.356 1.151-.909 1.384zm4.707-1.892c-.322-.595-.934-.974-1.763-1.114-.286 1.468-1.022 2.643-2.036 3.453.951.177 1.984.246 3.083.149 1.056-.093 1.883-.491 2.279-1.113.397-.623.341-1.365.145-1.952-.197-.588-.603-1.061-1.208-1.383-.603-.323-1.328-.396-1.976-.228-.816.21-1.68.741-1.874 1.174-.126.278-.081.588.131.804.255.259.691.284 1.051.05.199-.127.355-.332.478-.554.193-.348.542-.558.915-.558.426 0 .755.329.755.754 0 .177-.059.338-.165.467-.193.234-.485.327-.745.327-.222 0-.422-.065-.599-.189-.111-.079-.204-.167-.287-.255-.114-.12-.128-.236-.047-.346.293-.392.854-.69 1.439-.69.928 0 1.603.535 1.603 1.231 0 .377-.153.706-.418.934-.264.227-.596.339-.955.339-.414 0-.783-.165-.782-.5 0-.108.028-.207.083-.299z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                 <h3 class="text-2xl font-semibold mb-6 text-slate-800">Send Me a Message</h3>
+                       <form class="space-y-4" id="contact-form">
+       <div>
+           <label for="name" class="block text-sm font-medium text-slate-700 mb-1">Your Name</label>
+           <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Name" required>
+       </div>
+       <div>
+           <label for="email" class="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
+           <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="you@example.com" required>
+       </div>
+       <div>
+           <label for="subject" class="block text-sm font-medium text-slate-700 mb-1">Subject</label>
+           <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Project Inquiry" required>
+       </div>
+       <div>
+           <label for="message" class="block text-sm font-medium text-slate-700 mb-1">Message</label>
+           <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Tell me about your project..." required></textarea>
+       </div>
+       <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 transition w-full md:w-auto">
+           Send Message
+       </button>
+   </form>
+   
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-slate-800 text-slate-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-white text-lg font-semibold mb-4">Portfolio</h4>
+                    <p class="mb-4">Crafting digital experiences that make an impact.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.linkedin.com/in/dipak-kumar-49b1bb294?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="text-slate-400 hover:text-white transition" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-white transition" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/secret_life.of_dipak?igsh=dDhlbGFjd3JvaGY4" class="text-slate-400 hover:text-white transition" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        
+                        
+                                <path d="M12 0c-6.626 0-12 5.372-12 12 0 5.084 3.163 9.426 7.627 10.983.088.071.183.133.274.198.383.215.811.319 1.247.319.434 0 .864-.104 1.247-.319.091-.065.186-.127.274-.198 4.463-1.557 7.626-5.899 7.626-10.983 0-6.628-5.372-12-12-12zm-2.16 18.479c-2.571.358-4.84-.313-4.84-2.17 0-1.221 1.518-1.82 2.939-1.856 1.14 0 2.058.227 2.072.81.008.441-.512.608-1.441.639-.712.024-1.702-.092-1.805-.598-.07-.342.188-.774 1.055-.91.59-.09 1.821-.429 1.821-1.755 0-1.469-2.006-1.952-3.366-1.629-1.38.328-2.377 1.267-2.377 2.088 0 .385.225.634.729.634.432 0 .913-.208 1.35-.208.367 0 .741.103.741.464 0 .258-.183.532-.411.684-.355.239-.593.445-.772.804-.266.527-.093 1.251.171 1.512.319.318.899.383 2.038.248l.039-.011c.275-.078.626-.072.901.115.397.27.469.669.469 1.069 0 .559-.356 1.151-.909 1.384zm4.707-1.892c-.322-.595-.934-.974-1.763-1.114-.286 1.468-1.022 2.643-2.036 3.453.951.177 1.984.246 3.083.149 1.056-.093 1.883-.491 2.279-1.113.397-.623.341-1.365.145-1.952-.197-.588-.603-1.061-1.208-1.383-.603-.323-1.328-.396-1.976-.228-.816.21-1.68.741-1.874 1.174-.126.278-.081.588.131.804.255.259.691.284 1.051.05.199-.127.355-.332.478-.554.193-.348.542-.558.915-.558.426 0 .755.329.755.754 0 .177-.059.338-.165.467-.193.234-.485.327-.745.327-.222 0-.422-.065-.599-.189-.111-.079-.204-.167-.287-.255-.114-.12-.128-.236-.047-.346.293-.392.854-.69 1.439-.69.928 0 1.603.535 1.603 1.231 0 .377-.153.706-.418.934-.264.227-.596.339-.955.339-.414 0-.783-.165-.782-.5 0-.108.028-.207.083-.299z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-slate-400 hover:text-white transition">Home</a></li>
+                        <li><a href="#about" class="text-slate-400 hover:text-white transition">About</a></li>
+                        <li><a href="#projects" class="text-slate-400 hover:text-white transition">Projects</a></li>
+                        <li><a href="#skills" class="text-slate-400 hover:text-white transition">Skills</a></li>
+                        <li><a href="#contact" class="text-slate-400 hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white text-lg font-semibold mb-4">Services</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#projects" class="text-slate-400 hover:text-white transition">UI/UX Design</a></li>
+                        <li><a href="#projects" class="text-slate-400 hover:text-white transition">Web Development</a></li>
+                        <li><a href="#projects" class="text-slate-400 hover:text-white transition">Frontend Development</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-white transition">Branding</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-white transition">Consulting</a></li>
+                    </ul>
+                </div>
+                <div>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-slate-700 mt-8 pt-8 text-sm text-center text-slate-500">
+                <p>&copy; 2023 My Portfolio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if(mobileMenu.classList.contains('hidden') === false) {
+                    mobileMenu.classList.add('hidden');
+                }
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Project modals
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Skill bar animation
+        function animateSkillBars() {
+            const skillBars = document.querySelectorAll('.fill');
+            skillBars.forEach(bar => {
+                const targetWidth = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = targetWidth;
+                }, 100);
+            });
+        }
+
+        // Animate elements when they come into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeIn');
+                    
+                    if(entry.target.id === 'skills') {
+                        animateSkillBars();
+                    }
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Form submission
+           const contactForm = document.getElementById('contact-form');
+   if (contactForm) {
+       contactForm.addEventListener('submit', async (e) => {
+           e.preventDefault();
+           const formData = new FormData(contactForm);
+           const data = Object.fromEntries(formData.entries());
+
+           try {
+               const response = await fetch('http://localhost:5000/send-message', {
+                   method: 'POST',
+                   headers: {
+                       'Content-Type': 'application/json',
+                   },
+                   body: JSON.stringify(data),
+               });
+
+               const result = await response.json();
+               if (result.success) {
+                   alert(result.msg);
+                   contactForm.reset();
+               } else {
+                   alert('Error: ' + result.msg);
+               }
+           } catch (error) {
+               console.error('Error:', error);
+               alert('An error occurred while sending the message.');
+           }
+       });
+   }
+   
+    </script>
+</body>
+</html>
